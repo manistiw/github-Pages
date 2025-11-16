@@ -26,8 +26,8 @@ git add .
 # Commit the files
 git commit -m "Initial commit - QA Maturity Assessment site"
 
-# Add your GitHub repository as remote (replace YOUR_USERNAME and YOUR_REPO)
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+# Add your GitHub repository as remote
+git remote add origin https://github.com/manistiw/github-Pages.git
 
 # Push to GitHub
 git branch -M main
@@ -45,9 +45,9 @@ git push -u origin main
 
 ### Step 4: Access Your Site
 
-Your site will be available at:
+Your site is now live at:
 ```
-https://YOUR_USERNAME.github.io/YOUR_REPO/
+https://manistiw.github.io/github-Pages/
 ```
 
 It may take a few minutes for the site to be published. You'll see a green checkmark when it's ready!
