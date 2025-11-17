@@ -1,30 +1,23 @@
-# Part 2 — Time-Weighted Return (TWR) Test Automation
+# Time-Weighted Return Calculator - Test Suite
 
-## Objective
-As a QA Engineer, demonstrate responsibility for high-quality feature delivery through exploratory testing and test automation. This case study evaluates the ability to understand a new functional area (TWR) and define/implement appropriate test cases.
+Java test automation for TWR (Time-Weighted Return) calculator. This project includes 10 test cases covering various scenarios from basic calculations to real-world CSV data.
 
-## Challenge Overview
-We are introducing a **Time-Weighted Return (TWR)** metric in our financial application. This test suite provides comprehensive validation of the TWR calculator implementation against the defined interface.
+## What is TWR?
 
-### What is TWR?
-**Time-Weighted Return** measures portfolio performance while eliminating the distorting effects of cash flows (contributions/withdrawals). It's the industry standard for evaluating investment manager performance.
+Time-Weighted Return measures investment performance without the impact of cash flows. It's used to evaluate portfolio managers fairly, regardless of when clients add or withdraw money.
 
-**Formula**: TWR = [(1 + R₁) × (1 + R₂) × ... × (1 + Rₙ)] - 1
+## Project Setup
 
-## Deliverables ✅
-1. ✅ **10 Implemented Test Cases** (see `TimeWeightedReturnCalculatorTest.java`)
-2. ✅ **Test Strategy Document** explaining total test count and reasoning (see `TWR-TEST-STRATEGY.md`)
+**Requirements:**
+- Java 17+
+- Maven 3.6+
 
-## Technology Stack
-- **Language:** Java 17
-- **Build Tool:** Maven
-- **Testing Framework:** JUnit 5 (Jupiter)
-- **Assertion Library:** AssertJ (fluent assertions)
-- **Reporting:** JaCoCo code coverage
-- **CI/CD:** GitHub Actions
-- **Logging:** SLF4J
+**Technology:**
+- JUnit 5 for testing
+- AssertJ for assertions
+- JaCoCo for coverage
 
-## Project Structure
+## Structure
 ```
 part2-java-automation/
 ├── pom.xml                                           # Maven config (Java 17, JUnit 5, AssertJ)
@@ -43,29 +36,22 @@ part2-java-automation/
     └── java-tests.yml                               # CI/CD pipeline
 ```
 
-## 10 Implemented Test Cases
+## Test Cases
 
-| # | Test Case | Purpose |
-|---|-----------|---------|
-| **TC01** | Basic TWR - No Cash Flows | Baseline calculation with simple growth |
-| **TC02** | TWR with Single Contribution | Verify contribution exclusion logic |
-| **TC03** | TWR with Single Withdrawal | Verify withdrawal exclusion logic |
-| **TC04** | TWR with Multiple Cash Flows | Complex scenario handling |
-| **TC05** | Annualized vs Non-Annualized | Validate annualization formula |
-| **TC06** | Zero Return Scenario | Flat portfolio (0% return) |
-| **TC07** | Negative Return Scenario | Portfolio loss handling |
-| **TC08** | Real CSV Data - 2000-2003 Period | Historical 3-year performance with actual NAV data |
-| **TC09** | Real CSV Data - 2018 Volatility | Large $30M withdrawal isolation (4 months) |
-| **TC10** | Real CSV Data - 2020-2021 Recovery | COVID recovery with multiple cash flows (9 months) |
+| Test | Description |
+|------|-------------|
+| TC01 | Basic return (no cash flows) |
+| TC02 | Single contribution |
+| TC03 | Single withdrawal |
+| TC04 | Multiple cash flows |
+| TC05 | Annualized vs total return |
+| TC06 | Zero return |
+| TC07 | Negative return |
+| TC08 | Real CSV data (2000-2003) |
+| TC09 | Real CSV data (2018 volatility) |
+| TC10 | Real CSV data (2020-2021 recovery) |
 
-### Test Coverage Categories
-- ✅ **Happy Path** (TC01-TC02): Positive returns, contributions
-- ✅ **Functional** (TC03-TC05): Withdrawals, multiple flows, annualization
-- ✅ **Boundary** (TC06-TC07): Zero/negative returns
-- ✅ **Real-World Integration** (TC08-TC10): Actual CSV data from 2000-2023
-  - 2000-2003: Long-term historical data
-  - 2018: Volatile period with large cash flows ($30M withdrawal)
-  - 2020-2021: COVID recovery with mixed cash flows
+Tests cover happy path, edge cases, and real-world data validation.
 
 ### Total Test Strategy: 45-60 Tests Recommended
 See `TWR-TEST-STRATEGY.md` for detailed reasoning on test count allocation across categories.
