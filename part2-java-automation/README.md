@@ -28,7 +28,8 @@ part2-java-automation/
 │   │   ├── ITimeWeightedReturnCalculator.java       # Interface (per spec)
 │   │   └── TimeWeightedReturnCalculator.java        # TWR implementation
 │   └── test/java/com/qa/finance/calculator/
-│       └── TimeWeightedReturnCalculatorTest.java    # 10 Test Cases (TC01-TC10)
+│       ├── TimeWeightedReturnCalculatorTest.java    # 10 Test Cases with descriptive names
+│       └── TestDataProvider.java                    # Test data fixtures and builders
 ├── test-data/
 │   ├── NAV Time Series.csv                          # Real NAV data (2000-2018)
 │   └── Cashflow Time Series.csv                     # Real cashflow data (2000-2023)
@@ -40,18 +41,18 @@ part2-java-automation/
 
 | Test | Description |
 |------|-------------|
-| TC01 | Basic return (no cash flows) |
-| TC02 | Single contribution |
-| TC03 | Single withdrawal |
-| TC04 | Multiple cash flows |
-| TC05 | Annualized vs total return |
-| TC06 | Zero return |
-| TC07 | Negative return |
-| TC08 | Real CSV data (2000-2003) |
-| TC09 | Real CSV data (2018 volatility) |
-| TC10 | Real CSV data (2020-2021 recovery) |
+| shouldCalculate10PercentReturnWhenNoFlowsAndValueIncreasesFrom100kTo110k | Basic return with no cash flows |
+| shouldCalculate20PercentReturnWith50kMidYearContribution | Single $50k contribution impact |
+| shouldCalculate13PercentReturnWith50kMidYearWithdrawal | Single $50k withdrawal impact |
+| shouldHandleMultipleCashFlowsWithContributionAndWithdrawal | Multiple quarterly cash flows |
+| shouldAnnualize25PercentTwoYearReturnTo11Point8PercentPerYear | Annualized vs total return |
+| shouldReturnZeroWhenValueRemainsConstantAt100k | Zero return scenario |
+| shouldCalculateNegative15PercentWhenValueDropsFrom100kTo85k | Negative return scenario |
+| shouldHandleRealPortfolioDataFrom2000To2003WithInitialInvestment | Real CSV data (2000-2003) |
+| shouldHandleVolatile2018PeriodWith30MillionWithdrawal | Real CSV data (2018 volatility) |
+| shouldCalculateRecoveryPeriodReturnFrom2020To2021WithMultipleFlows | Real CSV data (2020-2021 recovery) |
 
-Tests cover happy path, edge cases, and real-world data validation.
+Tests use fixture methods from `TestDataProvider` for clean separation of test data and test logic.
 
 ### Total Test Strategy: 45-60 Tests Recommended
 See `TWR-TEST-STRATEGY.md` for detailed reasoning on test count allocation across categories.
@@ -75,8 +76,8 @@ mvn clean test
 
 ### Execute Specific Test Case
 ```bash
-# Run TC01 (Basic TWR)
-mvn test -Dtest=TimeWeightedReturnCalculatorTest#testCase01_BasicTWR_NoCashFlows_PositiveReturn
+# Run basic TWR test
+mvn test -Dtest=TimeWeightedReturnCalculatorTest#shouldCalculate10PercentReturnWhenNoFlowsAndValueIncreasesFrom100kTo110k
 
 # Run all TWR tests
 mvn test -Dtest=TimeWeightedReturnCalculatorTest
@@ -166,8 +167,9 @@ public interface ITimeWeightedReturnCalculator {
 - ✅ Real-world data handling (millions of dollars, 20+ years)
 
 ### Test Suite Highlights
-- ✅ **10 comprehensive test cases** covering happy path, edge cases, and error handling
-- ✅ **Parameterized tests** for data-driven scenarios
+- ✅ **10 comprehensive test cases** with descriptive names following `should...` convention
+- ✅ **Separation of concerns** with `TestDataProvider` for fixture methods
+- ✅ **Clean test data management** using builder patterns and common date fields
 - ✅ **Real CSV data integration** from provided time series
 - ✅ **Clear assertions** with meaningful failure messages
 - ✅ **Fast execution** (< 2 seconds for entire suite)
